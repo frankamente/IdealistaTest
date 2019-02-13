@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
 
-public class AdDTO  implements Comparable{
+public class AdDTO implements Comparable<AdDTO> {
     private int id;
     private AdDescription adDescription;
     private AdTypology adTypology;
@@ -17,7 +17,8 @@ public class AdDTO  implements Comparable{
     public AdDTO() {
     }
 
-    public AdDTO(com.example.demo.DataInitialize.AdDTO adDTO, Map<Integer, com.example.demo.DataInitialize.PictureDTO> pictureDTOMap) {
+    public AdDTO(com.example.demo.DataInitialize.AdDTO adDTO,
+            Map<Integer, com.example.demo.DataInitialize.PictureDTO> pictureDTOMap) {
         initializeBasicInformation(adDTO);
         pictureSet = new HashSet<>();
         for (int i = 0; i < adDTO.getPictures().length; i++) {
@@ -59,20 +60,22 @@ public class AdDTO  implements Comparable{
     private AdTypology getAdTypology(String typology) {
         AdTypologyEnum adTypologyEnum = AdTypologyEnum.getEnumFromString(typology);
         switch (adTypologyEnum) {
-            case CHALET:
-                return new AdTypology(adTypologyEnum, new ChaletTypologyScoreBehaviour());
-            case FLAT:
-                return new AdTypology(adTypologyEnum, new FlatTypologyScoreBehaviour());
-            case GARAGE:
-                return new AdTypology(adTypologyEnum, new NoTypologyScoreBehaviour());
+        case CHALET:
+            return new AdTypology(adTypologyEnum, new ChaletTypologyScoreBehaviour());
+        case FLAT:
+            return new AdTypology(adTypologyEnum, new FlatTypologyScoreBehaviour());
+        case GARAGE:
+            return new AdTypology(adTypologyEnum, new NoTypologyScoreBehaviour());
         }
         return new AdTypology(adTypologyEnum, new NoTypologyScoreBehaviour());
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         AdDTO adDTO = (AdDTO) o;
         return id == adDTO.id;
     }
@@ -188,7 +191,7 @@ public class AdDTO  implements Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
-        return Integer.compare(getScore(), ((AdDTO)o).getScore());
+    public int compareTo(AdDTO o) {
+        return Integer.compare(getScore(), o.getScore());
     }
 }

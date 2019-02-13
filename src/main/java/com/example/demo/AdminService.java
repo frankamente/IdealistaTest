@@ -19,7 +19,8 @@ public class AdminService {
         return list;
     }
 
-    private List<com.example.demo.Domain.AdDTO> getAllAdScore(Map<Integer, AdDTO> adDTOMap, Map<Integer, PictureDTO> pictureDTOMap) {
+    private List<com.example.demo.Domain.AdDTO> getAllAdScore(Map<Integer, AdDTO> adDTOMap,
+            Map<Integer, PictureDTO> pictureDTOMap) {
         List<com.example.demo.Domain.AdDTO> adDTODomainList = new ArrayList<>();
 
         adDTOMap.values().forEach(adDTO -> adDTODomainList.add(getAdDTODomain(adDTO, pictureDTOMap)));
